@@ -1,0 +1,12 @@
+Hello, teacher!
+This message is for you)
+
+I am going to create a game for blind people called "2nd sense" that will randomly generate a short sound of some animal or character
+from a movie and gamer should guess who ar what is that. Also, there will be speech recognition for voice control, however I have one big
+problem with that:
+If I create an object of speechcalculator class in MainInterfacController, console can't load an fxml file( But if there is no other
+objects everything works very good! 
+
+Can you please see my code and tell me what is wrong with it?
+
+THANK YOUUUUU FOR YOUR PRICELESS TIME YOU SPEND ON MY NON-WORKING CODE!
