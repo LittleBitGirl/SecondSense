@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <Label alignment="CENTER" layoutX="7.0" layoutY="7.0" opacity="1.0" prefHeight="77.0" prefWidth="408.0" style=" -fx-font-family: &quot;Monotype Corsiva&quot;;&#10;-fx-font-weight: bold;&#10; -fx-font-size: 42;&#10; -fx-text-fill: #4A4244;&#10;-fx-background-color: #B4E1E0;&#10;-fx-text-align: center;" text="2nd Sense" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS">
+      <font>
+        <Font name="Monotype Corsiva" size="38.0" fx:id="x1" />
+      </font>
+    </Label>
+    <Label alignment="CENTER" font="$x1" layoutX="9.0" layoutY="409.0" opacity="1.0" prefHeight="60.0" prefWidth="408.0" style=" -fx-font-family: &quot;Monotype Corsiva&quot;;&#10;-fx-font-weight: bold;&#10; -fx-font-size: 42;&#10; -fx-text-fill: #4A4244;&#10;-fx-background-color: #B4E1E0;&#10;-fx-text-align: center;" text="Well done!" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS" />
+    <ImageView fitHeight="306.0000305175781" fitWidth="408.00003041686006" layoutX="7.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../../../../Downloads/fac36b1a54839d4c28c0ca4871c49513.gif" />
+      </image>
+    </ImageView>
+  </children>
+</AnchorPane>
+

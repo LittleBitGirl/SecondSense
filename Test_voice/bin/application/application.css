@@ -1,0 +1,24 @@
+.button{
+        -fx-background-color:#B4E1E0;
+}
+
+.button:hover{
+	-fx-background-color:#4DC4CA;
+}
+.roundedbutton{
+	-fx-border-radius: 100 100 100 100;
+  	-fx-background-radius: 100 100 100 100;
+  	
+}
+.label:hover{
+	-fx-background-color:#4DC4CA;
+}
+#b1:hover{
+	-fx-background-color: #7A87B7;
+}
+#b2:hover{
+	-fx-background-color:#66C4A8;
+}
+#b3:hover{
+	-fx-background-color:#EDADBB;
+}

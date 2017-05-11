@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="476.9999000000025" prefWidth="418.0" style="-fx-background-color: #4A4244;&#10;-fx-padding: 5px;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.Game">
+  <!-- TODO Add Nodes -->
+  <right>
+    <Pane prefHeight="464.0" prefWidth="408.0" style="-fx-background-color: #B4E1E0;">
+      <children>
+        <Label alignment="CENTER" layoutX="0.0" layoutY="0.0" opacity="1.0" prefHeight="84.0" prefWidth="408.0" style=" -fx-font-family: &quot;Monotype Corsiva&quot;;&#10;-fx-font-weight: bold;&#10; -fx-font-size: 42;&#10; -fx-text-fill: #4A4244;&#10;-fx-background-color: #B4E1E0;&#10;-fx-text-align: center;" text="2nd Sense" textAlignment="CENTER" textOverrun="CENTER_WORD_ELLIPSIS">
+          <font>
+            <Font name="Monotype Corsiva" size="38.0" />
+          </font>
+        </Label>
+        <Button fx:id="b1" layoutX="104.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="200.0" prefWidth="200.0" style="-fx-border-radius: 20;" styleClass="roundedbutton" text="Nature">
+          <font>
+            <Font name="Monotype Corsiva" size="32.0" fx:id="x1" />
+          </font>
+          <stylesheets>
+            <URL value="@../../src/application/application.css" />
+          </stylesheets>
+        </Button>
+        <Button fx:id="b2" font="$x1" layoutX="4.0" layoutY="259.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="" styleClass="roundedbutton" text="Characters">
+          <stylesheets>
+            <URL value="@../../src/application/application.css" />
+          </stylesheets>
+        </Button>
+        <Button font="$x1" layoutX="204.0" layoutY="259.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="200.0" style="" styleClass="roundedbutton" text="Mixed">
+          <stylesheets>
+            <URL value="@../../src/application/application.css" />
+          </stylesheets>
+        </Button>
+      </children>
+    </Pane>
+  </right>
+</BorderPane>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.*?>
+
+<BorderPane prefHeight="469.00019999999495" prefWidth="418.999755859375" style="-fx-background-color: #4A4244;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="application.MainInterfaceController">
+  <padding>
+    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+  </padding>
+  <right>
+    <HBox alignment="CENTER" prefHeight="258.0" prefWidth="408.0" spacing="10.0" style="-fx-background-color: #B4E1E0;" BorderPane.alignment="CENTER">
+      <children>
+        <Button fx:id="start" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="358.0" prefWidth="398.999755859375" style=":hover{&#10;-fx-background-color: #4DC4CA;&#10;}&#10;&#10;" text="START">
+          <font>
+            <Font name="Monotype Corsiva" size="50.0" />
+          </font>
+          <stylesheets>
+            <URL value="@../../src/application/application.css" />
+          </stylesheets>
+        </Button>
+      </children>
+    </HBox>
+  </right>
+  <top>
+    <Label fx:id="statusLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="90.0" prefWidth="408.0" style=" -fx-font-family: &quot;Monotype Corsiva&quot;;&#10;-fx-font-weight: bold;&#10; -fx-font-size: 42;&#10; -fx-text-fill: #4A4244;&#10;-fx-background-color: #B4E1E0;" text="2nd Sense" textAlignment="CENTER" wrapText="false" />
+  </top>
+</BorderPane>
