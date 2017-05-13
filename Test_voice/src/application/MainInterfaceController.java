@@ -23,19 +23,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.SpeechCalculator;
+import model.SpeechRecognition;
 
-public class MainInterfaceController implements Initializable {
+public class MainInterfaceController extends BorderPane{
 	public static Stage window;
 	@FXML private Button start;
 	@FXML private Label statusLabel;
 	@FXML private Button b1;
-	private SpeechCalculator speechCalculator = new SpeechCalculator();
-
+	//private final SpeechRecognition sr = new SpeechRecognition();
+	
 	@FXML
 	private void initialize() {
-		/*
-		if(speechCalculator.startSaid(speechCalculator.result) == true){
+		/*if(sr.startSaid(sr.result) == true){
 			try {
 				changeStage();
 			} catch (Exception e) {
@@ -64,24 +63,16 @@ public class MainInterfaceController implements Initializable {
 	      stage.setScene(scene);
 	      stage.show();
 	}
-	private void changeStage(){
-		Stage stage;
-	    Parent root;
-	    stage=(Stage) start.getScene().getWindow();
-	    try {
-			root = FXMLLoader.load(getClass().getResource("/fxml/game.fxml"));
-			Scene scene = new Scene(root);
-		    stage.setScene(scene);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	    stage.show();
-	}
 	
+	private void changeStage() throws IOException{
+		System.out.println("in method");
+		Stage stage = null;
+	    Parent root;
+	    root = FXMLLoader.load(getClass().getResource("/fxml/game.fxml"));
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		
-	}	
+	
 }

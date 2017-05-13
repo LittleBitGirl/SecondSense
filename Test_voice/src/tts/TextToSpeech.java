@@ -13,18 +13,12 @@ import marytts.exceptions.MaryConfigurationException;
 import marytts.exceptions.SynthesisException;
 import marytts.modules.synthesis.Voice;
 
-/**
- * @author GOXR3PLUS
- *
- */
 public class TextToSpeech {
 
 	private AudioPlayer		tts;
 	private MaryInterface	marytts;
 
-	/**
-	 * Constructor
-	 */
+	//Constructor
 	public TextToSpeech() {
 		try {
 			marytts = new LocalMaryInterface();
@@ -34,26 +28,16 @@ public class TextToSpeech {
 		}
 	}
 
-	/**
-	 * Available voices in String representation
-	 * 
-	 * @return The available voices for MaryTTS
-	 */
+	//make a collection from all available voices
 	public Collection<Voice> getAvailableVoices() {
 		return Voice.getAvailableVoices();
 	}
 
-	/**
-	 * Change the default voice of the MaryTTS
-	 * 
-	 * @param voice
-	 */
+	//setting other voices method
 	public void setVoice(String voice) {
 		marytts.setVoice(voice);
 	}
-
-	/**
-	 */
+	
 	public void speak(String text, float gainValue, boolean daemon, boolean join) {
 
 		// Stop the previous player
@@ -61,8 +45,7 @@ public class TextToSpeech {
 
 		try (AudioInputStream audio = marytts.generateAudio(text)) {
 
-			// Player is a thread(threads can only run one time) so it can be
-			// used has to be initiated every time
+			//initializing new thread
 			tts = new AudioPlayer();
 			tts.setAudio(audio);
 			tts.setGain(gainValue);

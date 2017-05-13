@@ -22,7 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.SpeechCalculator;
+import model.SpeechRecognition;
 
 public class Game{
 	@FXML
@@ -35,10 +35,10 @@ public class Game{
 	public int CATEGORY = 1;
 	
 	public static Stage window;
-	//public SpeechCalculator speechCalculator = new SpeechCalculator();
+	//public SpeechRecognition SpeechRecognition = new SpeechRecognition();
 	@FXML
 	private void initialize() {
-		//speechCalculator.startSpeechThread();
+		//SpeechRecognition.startSpeechThread();
 	}
 	@FXML
 	private void handleButtonAction(ActionEvent event) throws IOException{
@@ -46,11 +46,10 @@ public class Game{
 	     Parent root;
 	     Stage newStage = new Stage();
 	     root = FXMLLoader.load(getClass().getResource("/fxml/nature.fxml"));
-	     //create a new scene with root and set the stage
-	      Scene scene = new Scene(root);
-	      stage.close();
-	      newStage.setScene(scene);
-	      newStage.show();
+	     Scene scene = new Scene(root);
+	     stage.close();
+	     newStage.setScene(scene);
+	     newStage.show();
 	      
 	}
 }
