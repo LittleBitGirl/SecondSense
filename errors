@@ -1,0 +1,88 @@
+1. This error appears when I create SpeechRecognition object in the MainInterfaceController even when I used Platform.runLater(()->):
+
+javafx.fxml.LoadException: 
+/C:/Users/Admin/workspace/Test_voice/bin/fxml/MainInterfaceController.fxml:17
+
+	at javafx.fxml.FXMLLoader.constructLoadException(Unknown Source)
+	at javafx.fxml.FXMLLoader.loadImpl(Unknown Source)
+	at javafx.fxml.FXMLLoader.loadImpl(Unknown Source)
+	at javafx.fxml.FXMLLoader.loadImpl(Unknown Source)
+	at javafx.fxml.FXMLLoader.loadImpl(Unknown Source)
+	at javafx.fxml.FXMLLoader.loadImpl(Unknown Source)
+	at javafx.fxml.FXMLLoader.loadImpl(Unknown Source)
+	at javafx.fxml.FXMLLoader.loadImpl(Unknown Source)
+	at javafx.fxml.FXMLLoader.load(Unknown Source)
+	at application.Main.start(Main.java:38)
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$153(Unknown Source)
+	at com.sun.javafx.application.LauncherImpl$$Lambda$53/1537543409.run(Unknown Source)
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$166(Unknown Source)
+	at com.sun.javafx.application.PlatformImpl$$Lambda$44/1051754451.run(Unknown Source)
+	at com.sun.javafx.application.PlatformImpl.lambda$null$164(Unknown Source)
+	at com.sun.javafx.application.PlatformImpl$$Lambda$47/946281165.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$165(Unknown Source)
+	at com.sun.javafx.application.PlatformImpl$$Lambda$46/1775282465.run(Unknown Source)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(Unknown Source)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$null$141(Unknown Source)
+	at com.sun.glass.ui.win.WinApplication$$Lambda$37/1109371569.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+
+2. This error sometimes appears, but rarely - when the whole code doesn't work:
+
+Caused by: java.lang.IllegalStateException: javax.sound.sampled.LineUnavailableException: line with format PCM_SIGNED 16000.0 Hz, 16 bit, mono, 2 bytes/frame, little-endian not supported.
+	at edu.cmu.sphinx.api.Microphone.<init>(Microphone.java:38)
+	at edu.cmu.sphinx.api.SpeechSourceProvider.getMicrophone(SpeechSourceProvider.java:18)
+	at edu.cmu.sphinx.api.LiveSpeechRecognizer.<init>(LiveSpeechRecognizer.java:35)
+	at model.SpeechCalculator.<init>(SpeechCalculator.java:59)
+	at application.MainInterfaceController.<init>(MainInterfaceController.java:33)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(Unknown Source)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(Unknown Source)
+	at java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at java.lang.Class.newInstance(Unknown Source)
+	at sun.reflect.misc.ReflectUtil.newInstance(Unknown Source)
+	at javafx.fxml.FXMLLoader$ValueElement.processAttribute(Unknown Source)
+	at javafx.fxml.FXMLLoader$InstanceDeclarationElement.processAttribute(Unknown Source)
+	at javafx.fxml.FXMLLoader$Element.processStartElement(Unknown Source)
+	at javafx.fxml.FXMLLoader$ValueElement.processStartElement(Unknown Source)
+	at javafx.fxml.FXMLLoader.processStartElement(Unknown Source)
+	... 23 more
+
+3. And the Last one:
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at com.sun.javafx.application.LauncherImpl.launchApplicationWithArgs(Unknown Source)
+	at com.sun.javafx.application.LauncherImpl.launchApplication(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at sun.launcher.LauncherHelper$FXHelper.main(Unknown Source)
+Caused by: java.lang.RuntimeException: Exception in Application start method
+	at com.sun.javafx.application.LauncherImpl.launchApplication1(Unknown Source)
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication$147(Unknown Source)
+	at com.sun.javafx.application.LauncherImpl$$Lambda$48/1732398722.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.NullPointerException: Root cannot be null
+	at javafx.scene.Scene.<init>(Unknown Source)
+	at javafx.scene.Scene.<init>(Unknown Source)
+	at application.Main.start(Main.java:40)
+	at com.sun.javafx.application.LauncherImpl.lambda$launchApplication1$153(Unknown Source)
+	at com.sun.javafx.application.LauncherImpl$$Lambda$53/37058617.run(Unknown Source)
+	at com.sun.javafx.application.PlatformImpl.lambda$runAndWait$166(Unknown Source)
+	at com.sun.javafx.application.PlatformImpl$$Lambda$45/1051754451.run(Unknown Source)
+	at com.sun.javafx.application.PlatformImpl.lambda$null$164(Unknown Source)
+	at com.sun.javafx.application.PlatformImpl$$Lambda$47/1933975749.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at com.sun.javafx.application.PlatformImpl.lambda$runLater$165(Unknown Source)
+	at com.sun.javafx.application.PlatformImpl$$Lambda$46/1775282465.run(Unknown Source)
+	at com.sun.glass.ui.InvokeLaterDispatcher$Future.run(Unknown Source)
+	at com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at com.sun.glass.ui.win.WinApplication.lambda$null$141(Unknown Source)
+	at com.sun.glass.ui.win.WinApplication$$Lambda$37/1109371569.run(Unknown Source)
+	... 1 more
+Exception running application application.Main
