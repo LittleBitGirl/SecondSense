@@ -12,6 +12,9 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.sound.sampled.LineUnavailableException;
+
+import edu.cmu.sphinx.api.SpeechResult;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -20,6 +23,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -36,13 +40,13 @@ public class Nature extends Pane {
 	private Label Mainlabel;
 	@FXML
 	private Label BottomLabel;
-
+	private SpeechRecognition SR;
 	@FXML
 	private void initialize() {
 		//soundPlay(SoundGenerator());
 	}
 	String imgUrl = null;
-	String answer = null;
+	public String answer = null;
 	private String SoundGenerator(){
 		String url      = "jdbc:mysql://localhost:3306/";
 		String user     = "root";
@@ -82,6 +86,7 @@ public class Nature extends Pane {
 				
 				//timer.schedule(task,5000);*/
 			}
+			
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -90,8 +95,10 @@ public class Nature extends Pane {
 	}
 	
 	@FXML
-	private void imageClicked(){
+	private void imageClicked() throws LineUnavailableException{
+		    SR = new SpeechRecognition();
 			soundPlay(SoundGenerator());
+			getSpeech();
 	}
 	private void soundPlay(String path){
 		Media sound = new Media(new File(path).toURI().toString());
@@ -99,4 +106,57 @@ public class Nature extends Pane {
         mediaPlayer.play();
 	}
 	
+	private void getSpeech(){
+		System.out.println("Entering start speech thread");
+
+		if (SpeechRecognition.speechThread != null && SpeechRecognition.speechThread.isAlive())
+			return;
+
+		// initialise
+		SpeechRecognition.speechThread = new Thread(() -> {
+
+			// Allocate the resources
+			SpeechRecognition.recognizerStopped = false;
+			SpeechRecognition.logger.log(Level.INFO, "You can start to speak...\n");
+			
+			try {
+				while (!SpeechRecognition.recognizerStopped) {
+					//This method will determine the end of speech.
+					
+					SpeechResult speechResult = SpeechRecognition.recognizer.getResult();
+					System.out.println("///");
+					if (speechResult != null) {
+						
+						SpeechRecognition.result = speechResult.getHypothesis();
+						System.out.println("You said: [" + SpeechRecognition.result + "]\n");
+						CheckAnswer(SpeechRecognition.result);
+					} else
+						SpeechRecognition.logger.log(Level.INFO, "I can't understand you.\n");
+
+				}
+			} catch (Exception ex) {
+				SpeechRecognition.logger.log(Level.WARNING, null, ex);
+				SpeechRecognition.recognizerStopped = true;
+			}
+
+			SpeechRecognition.logger.log(Level.INFO, "SpeechThread has exited...");
+		});
+
+		// Start
+		SpeechRecognition.speechThread.start();
+	}
+	
+	private void CheckAnswer(String speech){
+		
+		SpeechRecognition.logger.log(Level.INFO, "Checking answer...");
+		if(speech.equals(answer)){
+			SpeechRecognition.textToSpeech.speak("You are right", 1.5f, false, true);
+			SpeechRecognition.recognizer.stopRecognition();
+			SpeechRecognition.logger.log(Level.INFO, "SpeechThread has been closed...");
+		}
+		else{
+			SpeechRecognition.textToSpeech.speak("The answer is" + answer, 1.5f, false, true);
+			SpeechRecognition.recognizer.stopRecognition();
+		}
+	}
 }

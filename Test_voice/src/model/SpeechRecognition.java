@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.Port;
 
+import application.Nature;
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.LiveSpeechRecognizer;
 import edu.cmu.sphinx.api.SpeechResult;
@@ -17,26 +20,28 @@ import marytts.modules.synthesis.Voice;
 import tts.TextToSpeech;
 
 public class SpeechRecognition {
-
-	public TextToSpeech textToSpeech = new TextToSpeech();
+	
+	static AudioFormat format = new AudioFormat(8000.0f, 16, 1, true, true);
+	
+	public static TextToSpeech textToSpeech = new TextToSpeech();
 
 	// Logger (messages)
-	private Logger logger = Logger.getLogger(getClass().getName());
+	public static Logger logger = Logger.getLogger(SpeechRecognition.class.getName());
 
 	// Variables
-	public String result;
+	public static String result;
 
 	// Threads
-	Thread	speechThread;
+	public static Thread	speechThread;
 	Thread	resourcesThread;
 
 	// LiveRecognizer
-	public LiveSpeechRecognizer recognizer;
+	public static LiveSpeechRecognizer recognizer;
 
-	private volatile boolean recognizerStopped = true;
+	public volatile static boolean recognizerStopped = true;
 
 	//Constructor
-	public SpeechRecognition() {
+	public SpeechRecognition() throws LineUnavailableException {
 
 		logger.log(Level.INFO, "Loading..\n");
 
@@ -55,12 +60,12 @@ public class SpeechRecognition {
 
 		try {
 			recognizer = new LiveSpeechRecognizer(configuration);
+			System.out.println("///");
 		} catch (IOException ex) {
 			logger.log(Level.SEVERE, null, ex);
 		}
 
-		// Start recognition process pruning previously cached data.
-		// recognizer.startRecognition(true);
+		recognizer.startRecognition(true);
 
 		// that we have added on the class path
 		Voice.getAvailableVoices().stream().forEach(voice -> System.out.println("Voice: " + voice));
@@ -68,13 +73,14 @@ public class SpeechRecognition {
 
 		// Start the Thread
 		// startSpeechThread()
-		recognizer.startRecognition(true);
 		startResourcesThread();
 	}
 
 	// Starting the main thread of speech recognition
 	public void startSpeechThread() {
-
+		
+		
+		
 		System.out.println("Entering start speech thread");
 
 		if (speechThread != null && speechThread.isAlive())
@@ -86,16 +92,14 @@ public class SpeechRecognition {
 			// Allocate the resources
 			recognizerStopped = false;
 			logger.log(Level.INFO, "You can start to speak...\n");
-
+			
 			try {
 				while (!recognizerStopped) {
 					//This method will determine the end of speech.
 					SpeechResult speechResult = recognizer.getResult();
 					if (speechResult != null) {
-
 						result = speechResult.getHypothesis();
 						System.out.println("You said: [" + result + "]\n");
-						makeDecision(result, speechResult.getWords());
 					} else
 						logger.log(Level.INFO, "I can't understand you.\n");
 
@@ -114,10 +118,17 @@ public class SpeechRecognition {
 	}
 
 	//Stop speech
-	public void stopSpeechThread() {
+	public static void stopSpeechThread() {
 		if (speechThread != null && speechThread.isAlive()) {
+			
 			recognizerStopped = true;
-			//recognizer.stopRecognition();
+			recognizer.stopRecognition();
+			try {
+				AudioSystem.getTargetDataLine(format).close();
+			} catch (LineUnavailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -156,7 +167,6 @@ public class SpeechRecognition {
 		textToSpeech.speak("Welcome to the second sense! Please say something to continue or press the start button.", 1.9f, false, true);
 		//textToSpeech.speak(text, gainValue, daemon, join);
 	}
-	
 	public boolean startSaid(String speech){
 		if(speech.contains("lion")){
 			return true;

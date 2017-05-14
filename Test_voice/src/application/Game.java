@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,6 +26,7 @@ import javafx.stage.Stage;
 import model.SpeechRecognition;
 
 public class Game{
+	
 	@FXML
 	private Button b1;
 	@FXML
@@ -35,7 +37,7 @@ public class Game{
 	public int CATEGORY = 1;
 	
 	public static Stage window;
-	//public SpeechRecognition SpeechRecognition = new SpeechRecognition();
+	
 	@FXML
 	private void initialize() {
 		//SpeechRecognition.startSpeechThread();
@@ -43,13 +45,19 @@ public class Game{
 	@FXML
 	private void handleButtonAction(ActionEvent event) throws IOException{
 	     Stage stage = (Stage) b1.getScene().getWindow();
+	     /*Platform.runLater(()->{
+			try {
+				root = FXMLLoader.load(getClass().getResource("/fxml/nature.fxml"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});*/
 	     Parent root;
-	     Stage newStage = new Stage();
 	     root = FXMLLoader.load(getClass().getResource("/fxml/nature.fxml"));
 	     Scene scene = new Scene(root);
-	     stage.close();
-	     newStage.setScene(scene);
-	     newStage.show();
+	     stage.setScene(scene);
+	     stage.show();
 	      
 	}
 }

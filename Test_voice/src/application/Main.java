@@ -16,6 +16,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -26,7 +28,7 @@ public class Main extends Application {
 
 	Stage window;
   
-    private SpeechRecognition SR = new SpeechRecognition();
+    //private SpeechRecognition SR = new SpeechRecognition();
     @Override
 	public void start(Stage stage) throws IOException{
     	Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainInterfaceController.fxml"));
@@ -45,33 +47,39 @@ public class Main extends Application {
 		stage.setScene(scene);
         stage.setTitle("SECOND SENSE");
         
-        SR.startSpeechThread();
-		SR.sayWelcome();
+        //SR.recognizer.stopRecognition();
+		//SR.sayWelcome();
 		
 		stage.show();
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
 			public void handle(WindowEvent arg0) {
-				SR.stopSpeechThread();
+				//SR.stopSpeechThread();
 			}
 		});
 		System.out.println(root.toString());
-		while(true){
-			if(SR.recognizer.getResult() != null){
-				if(SR.startSaid(SR.recognizer.getResult().getHypothesis())){
-					SR.textToSpeech.speak("Okay", 1.9f, false, true);
-					System.out.println("Staart");
-					changeStageForStart();
-				}
-				else{
-					System.out.println("no");
-				}
+		
+		root.setOnKeyPressed(e -> { 
+			if (e.getCode() == KeyCode.ENTER) { 
+				System.out.println("Eeeenterrr");
+				//SR.startSpeechThread();
 			}
-			else{
-				SR.textToSpeech.speak("Say start", 1.9f, false, true);
+		});
+		
+		root.setOnKeyReleased(e ->{
+			if(e.getCode() == KeyCode.ENTER){
+				System.out.println("Eeeenterrr_out");
+				//SR.stopSpeechThread();
 			}
-		}
+		});
+		
+		/*SR.recognizer.startRecognition(true);
+		SR.recognizerStopped = false;\
+		
+		*/
 	}
+    
+    
 	
 	private void changeStageForStart() throws IOException{
 		System.out.println("in method");
@@ -82,7 +90,9 @@ public class Main extends Application {
 		stage.setScene(scene);
 		stage.show();
 	}
-    
+	public static void main(String[] args) {
+        launch(args);
+    }
 	
 }
 
