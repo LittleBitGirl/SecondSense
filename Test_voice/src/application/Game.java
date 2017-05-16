@@ -23,7 +23,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.SpeechRecognition;
 
 public class Game{
 	
@@ -33,31 +32,39 @@ public class Game{
 	private Button b2;
 	@FXML
 	private Button b3;
-	@FXML private Button start;
-	public int CATEGORY = 1;
-	
+	public static int CATEGORY = 1;
+	Nature nature = new Nature();
 	public static Stage window;
 	
 	@FXML
-	private void initialize() {
-		//SpeechRecognition.startSpeechThread();
-	}
-	@FXML
 	private void handleButtonAction(ActionEvent event) throws IOException{
-	     Stage stage = (Stage) b1.getScene().getWindow();
-	     /*Platform.runLater(()->{
-			try {
-				root = FXMLLoader.load(getClass().getResource("/fxml/nature.fxml"));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});*/
-	     Parent root;
-	     root = FXMLLoader.load(getClass().getResource("/fxml/nature.fxml"));
-	     Scene scene = new Scene(root);
-	     stage.setScene(scene);
-	     stage.show();
+		 CATEGORY = 1;
+		Stage stage = (Stage) b1.getScene().getWindow();
+		 Scene scene = new Scene(nature);
+		 scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		 
+			// Primary Stage
+			window = stage;
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("/image/unmute.png")));
+			stage.setScene(scene);
+			stage.setOnCloseRequest(close -> System.exit(0));
+			stage.show();
 	      
 	}
+	
+	@FXML
+	private void CharactersChoosed(){
+			Stage stage = (Stage) b1.getScene().getWindow();
+			Scene scene = new Scene(nature);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		 
+			// Primary Stage
+			window = stage;
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("/image/unmute.png")));
+			stage.setScene(scene);
+			stage.setOnCloseRequest(close -> System.exit(0));
+			stage.show();
+			CATEGORY = 2;
+	}
+	
 }

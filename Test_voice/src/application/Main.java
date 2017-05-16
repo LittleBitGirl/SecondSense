@@ -1,5 +1,4 @@
 package application;
-
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,61 +21,22 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import model.SpeechRecognition;
 
 public class Main extends Application {
-
+	
 	Stage window;
-  
-    //private SpeechRecognition SR = new SpeechRecognition();
     @Override
 	public void start(Stage stage) throws IOException{
     	Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainInterfaceController.fxml"));
-    	/*Platform.runLater(()->{
-			try {
-				root = FXMLLoader.load(getClass().getResource("/fxml/MainInterfaceController.fxml"));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});*/
     	Scene scene = new Scene(root);
-    	System.out.println();
 		System.out.println("-----");
 		
 		stage.getIcons().add(new Image(getClass().getResourceAsStream("/image/unmute.png")));
 		stage.setScene(scene);
         stage.setTitle("SECOND SENSE");
-        
-        //SR.recognizer.stopRecognition();
-		//SR.sayWelcome();
-		
 		stage.show();
-		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent arg0) {
-				//SR.stopSpeechThread();
-			}
-		});
 		System.out.println(root.toString());
 		
-		root.setOnKeyPressed(e -> { 
-			if (e.getCode() == KeyCode.ENTER) { 
-				System.out.println("Eeeenterrr");
-				//SR.startSpeechThread();
-			}
-		});
-		
-		root.setOnKeyReleased(e ->{
-			if(e.getCode() == KeyCode.ENTER){
-				System.out.println("Eeeenterrr_out");
-				//SR.stopSpeechThread();
-			}
-		});
-		
-		/*SR.recognizer.startRecognition(true);
-		SR.recognizerStopped = false;\
-		
-		*/
 	}
     
     

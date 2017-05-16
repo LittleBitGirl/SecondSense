@@ -1,5 +1,5 @@
 package application;
-// controller
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,6 +9,10 @@ import java.sql.Statement;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,39 +24,60 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-import model.SpeechRecognition;
+import javafx.util.Duration;
 
-public class Nature extends Pane {
-	
+public class Nature extends AnchorPane{
+	private int counter = 0;
 	public static Stage window;
-	
 	@FXML
 	private ImageView animation;
 	@FXML
 	private Label Mainlabel;
 	@FXML
-	private Label BottomLabel;
-	private SpeechRecognition SR;
+	public static Label BottomLabel; 
 	@FXML
-	private void initialize() {
-		//soundPlay(SoundGenerator());
-	}
+	private Button StartThread; 
+	
 	String imgUrl = null;
-	public String answer = null;
+	public static String answer = null;
+	
+	private SpeechRecognition SR = new SpeechRecognition();
+	
+	Nature(){
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nature.fxml"));
+		loader.setController(this);
+		loader.setRoot(this);
+		
+		try {
+			loader.load();
+		} catch (IOException ex) {
+			Logger.getLogger(getClass().getName()).log(Level.SEVERE, " FXML can't be loaded!", ex);
+		}
+	}
+	
+	@FXML
+	private void initialize(){
+		StartThread.disableProperty().bind(SR.speechRecognizerThreadRunningProperty());
+		StartThread.setOnAction(a -> {
+			SR.startSpeechRecognition();
+		});
+	}
 	private String SoundGenerator(){
 		String url      = "jdbc:mysql://localhost:3306/";
 		String user     = "root";
 		String password = "";
 		String uurrll   = null;
-		
+		String table    = null;
 		try{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			Connection conn = DriverManager.getConnection(url, user, password);
@@ -67,24 +92,21 @@ public class Nature extends Pane {
 			int High = 18;
 			randID = r.nextInt(High-Low) + Low;
 
-			
-			ResultSet rs = stmnt.executeQuery("SELECT * FROM animals WHERE id = " + randID + "");
+			if(Game.CATEGORY == 1){
+				
+				table = "animals";
+				
+			}else{
+				
+				table = "characters";
+				
+			}
+			ResultSet rs = stmnt.executeQuery("SELECT * FROM " + table + " WHERE id = " + randID + "");
 			
 			while(rs.next()){
 				uurrll = rs.getString("url");
 				imgUrl = rs.getString("image");
 				answer = rs.getString("name");
-				/*Timer timer = new Timer();
-				TimerTask task = new TimerTask()
-				{
-				        public void run()
-				        {
-				            animation.setImage(new Image(imgUrl));       
-				        }
-
-				};
-				
-				//timer.schedule(task,5000);*/
 			}
 			
 		}
@@ -95,68 +117,20 @@ public class Nature extends Pane {
 	}
 	
 	@FXML
-	private void imageClicked() throws LineUnavailableException{
-		    SR = new SpeechRecognition();
-			soundPlay(SoundGenerator());
-			getSpeech();
+	private void imageClicked(){
+		SR.ignoreSpeechRecognitionResults();
+		soundPlay(SoundGenerator());
+		Timeline timeline = new Timeline(new KeyFrame(
+		        Duration.millis(4000),
+		        ae -> SR.stopIgnoreSpeechRecognitionResults()));
+		timeline.play();
+		
 	}
 	private void soundPlay(String path){
 		Media sound = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.seek(new Duration(mediaPlayer.getCurrentTime().toMillis() +5000));
+
         mediaPlayer.play();
-	}
-	
-	private void getSpeech(){
-		System.out.println("Entering start speech thread");
-
-		if (SpeechRecognition.speechThread != null && SpeechRecognition.speechThread.isAlive())
-			return;
-
-		// initialise
-		SpeechRecognition.speechThread = new Thread(() -> {
-
-			// Allocate the resources
-			SpeechRecognition.recognizerStopped = false;
-			SpeechRecognition.logger.log(Level.INFO, "You can start to speak...\n");
-			
-			try {
-				while (!SpeechRecognition.recognizerStopped) {
-					//This method will determine the end of speech.
-					
-					SpeechResult speechResult = SpeechRecognition.recognizer.getResult();
-					System.out.println("///");
-					if (speechResult != null) {
-						
-						SpeechRecognition.result = speechResult.getHypothesis();
-						System.out.println("You said: [" + SpeechRecognition.result + "]\n");
-						CheckAnswer(SpeechRecognition.result);
-					} else
-						SpeechRecognition.logger.log(Level.INFO, "I can't understand you.\n");
-
-				}
-			} catch (Exception ex) {
-				SpeechRecognition.logger.log(Level.WARNING, null, ex);
-				SpeechRecognition.recognizerStopped = true;
-			}
-
-			SpeechRecognition.logger.log(Level.INFO, "SpeechThread has exited...");
-		});
-
-		// Start
-		SpeechRecognition.speechThread.start();
-	}
-	
-	private void CheckAnswer(String speech){
-		
-		SpeechRecognition.logger.log(Level.INFO, "Checking answer...");
-		if(speech.equals(answer)){
-			SpeechRecognition.textToSpeech.speak("You are right", 1.5f, false, true);
-			SpeechRecognition.recognizer.stopRecognition();
-			SpeechRecognition.logger.log(Level.INFO, "SpeechThread has been closed...");
-		}
-		else{
-			SpeechRecognition.textToSpeech.speak("The answer is" + answer, 1.5f, false, true);
-			SpeechRecognition.recognizer.stopRecognition();
-		}
 	}
 }

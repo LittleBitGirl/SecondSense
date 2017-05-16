@@ -11,32 +11,27 @@ public class EnglishNumberToString {
 			" eight", " nine", " ten", " eleven", " twelve", " thirteen", " fourteen", " fifteen", " sixteen",
 			" seventeen", " eighteen", " nineteen" };
 
-	/**
-	 * Number to English Word Representation
-	 * 
-	 * @param number
-	 * @return
-	 */
+
 	public String convert(long number) {
 		// 0 to 999 999 999 999
 		if (number == 0) {
 			return "zero";
 		}
 
-		String snumber ; //= Long.toString(number)
+		String snumber ;
 
-		// pad with "0"
+	
 		String mask = "000000000000";
 		DecimalFormat df = new DecimalFormat(mask);
 		snumber = df.format(number);
 
-		// XXXnnnnnnnnn
+
 		int billions = Integer.parseInt(snumber.substring(0, 3));
-		// nnnXXXnnnnnn
+
 		int millions = Integer.parseInt(snumber.substring(3, 6));
-		// nnnnnnXXXnnn
+
 		int hundredThousands = Integer.parseInt(snumber.substring(6, 9));
-		// nnnnnnnnnXXX
+
 		int thousands = Integer.parseInt(snumber.substring(9, 12));
 
 		String tradBillions;
@@ -82,7 +77,6 @@ public class EnglishNumberToString {
 		tradThousand = convertLessThanOneThousand(thousands);
 		result = result + tradThousand;
 
-		// remove extra spaces!
 		return result.replaceAll("^\\s+", "").replaceAll("\\b\\s{2,}\\b", " ");
 	}
 
@@ -107,7 +101,6 @@ public class EnglishNumberToString {
 	
 	
 	
-	//----------------------------------------------------------------------------------------------
 	public static String numberToString(int number) {
 		if (number == 0)
 			return "zero";

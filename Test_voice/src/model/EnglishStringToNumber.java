@@ -6,12 +6,6 @@ package model;
  */
 public class EnglishStringToNumber {
 
-	/**
-	 * English Word Representation to integer
-	 * 
-	 * @param word
-	 * @return
-	 */
 	public int convert(String word) {
 		int wordnum = 0;
 		String[] arrinwords = word.split(" ");
@@ -166,9 +160,7 @@ public class EnglishStringToNumber {
 		case "thousand":
 			num = 1000;
 			break;
-		/*
-		 * default: num = "Invalid month"; break
-		 */
+
 		}
 		return num;
 	}

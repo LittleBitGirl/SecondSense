@@ -6,7 +6,10 @@
 
 grammar grammar;
 
-public <feelings>  = ( how are you | hello);
-public <voices>  = ( change to voice one  | change to voice two | change to voice three );
+public <feelings> = ( how are you | hello);
+public <voices>   = ( change to voice one  | change to voice two | change to voice three );
 public <amazing>  = ( say amazing | what day is today );
-public <nervous>  = (who is your boss | hey boss);           
+public <nervous>  = ( who is your boss | hey boss);   
+public <animals>  = ( dinosaur | mouse | lion | cat | dog | elk | elephant | rat | lynx | horse | monkey | eagle | snake | frog | cow | camel | bat | goat | raccoon | goose );
+public <levels>   = ( nature | mix | characters);
+public <people>   = ( kesha | lyubov.i.golubi | prostokvashino | jentelmeny-udachi | kin-dza-dza | ivan-vasilyevich | afonya | buratino | carlson | maugli | mimino | operatsya );

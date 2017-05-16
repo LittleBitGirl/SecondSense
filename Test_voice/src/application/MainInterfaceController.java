@@ -23,42 +23,24 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import model.SpeechRecognition;
 
 public class MainInterfaceController extends BorderPane{
 	public static Stage window;
 	@FXML private Button start;
 	@FXML private Label statusLabel;
 	@FXML private Button b1;
-	//private final SpeechRecognition sr = new SpeechRecognition();
-	
-	@FXML
-	private void initialize() {
-		/*if(sr.startSaid(sr.result) == true){
-			try {
-				changeStage();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		else{
-			
-		}*/
-	}
 	@FXML
 	private void handleButtonAction(ActionEvent event) throws IOException{
 	     Stage stage;
 	     Parent root;
 	     if(event.getSource()==start){     
 	        stage=(Stage) start.getScene().getWindow();
-	        //load up OTHER FXML document
 	        root = FXMLLoader.load(getClass().getResource("/fxml/game.fxml"));
 	      }
 	     else{
 	       stage=(Stage) b1.getScene().getWindow();
 	       root = FXMLLoader.load(getClass().getResource("/fxml/nature.fxml"));
 	     }
-	     //create a new scene with root and set the stage
 	      Scene scene = new Scene(root);
 	      stage.setScene(scene);
 	      stage.show();

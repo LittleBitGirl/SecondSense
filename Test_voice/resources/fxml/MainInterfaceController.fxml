@@ -21,10 +21,13 @@
   <right>
     <HBox alignment="CENTER" prefHeight="258.0" prefWidth="408.0" spacing="10.0" style="-fx-background-color: #B4E1E0;" BorderPane.alignment="CENTER">
       <children>
-        <Button fx:id="start" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="358.0" prefWidth="398.999755859375" style=":hover{&#10;-fx-background-color: #4DC4CA;&#10;}&#10;&#10;" text="START">
+        <Button fx:id="start" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="358.0" prefWidth="414.0" scaleZ="3.0" style=":hover{&#10;-fx-background-color: #4DC4CA;&#10;}&#10;&#10;" text="START" translateZ="5.0">
           <font>
             <Font name="Monotype Corsiva" size="50.0" />
           </font>
+          <rotationAxis>
+            <Point3D z="5.0" />
+          </rotationAxis>
           <stylesheets>
             <URL value="@../../src/application/application.css" />
           </stylesheets>
@@ -33,6 +36,6 @@
     </HBox>
   </right>
   <top>
-    <Label fx:id="statusLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="90.0" prefWidth="408.0" style=" -fx-font-family: &quot;Monotype Corsiva&quot;;&#10;-fx-font-weight: bold;&#10; -fx-font-size: 42;&#10; -fx-text-fill: #4A4244;&#10;-fx-background-color: #B4E1E0;" text="2nd Sense" textAlignment="CENTER" wrapText="false" />
+    <Label fx:id="statusLabel" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="89.0" prefWidth="399.0" style=" -fx-font-family: &quot;Monotype Corsiva&quot;;&#10;-fx-font-weight: bold;&#10; -fx-font-size: 42;&#10; -fx-text-fill: #4A4244;&#10;-fx-background-color: #B4E1E0;" text="2nd Sense" textAlignment="CENTER" wrapText="false" />
   </top>
 </BorderPane>

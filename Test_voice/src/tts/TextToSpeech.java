@@ -28,24 +28,20 @@ public class TextToSpeech {
 		}
 	}
 
-	//make a collection from all available voices
 	public Collection<Voice> getAvailableVoices() {
 		return Voice.getAvailableVoices();
 	}
-
-	//setting other voices method
 	public void setVoice(String voice) {
 		marytts.setVoice(voice);
 	}
 	
 	public void speak(String text, float gainValue, boolean daemon, boolean join) {
 
-		// Stop the previous player
 		stopSpeaking();
 
 		try (AudioInputStream audio = marytts.generateAudio(text)) {
 
-			//initializing new thread
+
 			tts = new AudioPlayer();
 			tts.setAudio(audio);
 			tts.setGain(gainValue);
@@ -68,7 +64,7 @@ public class TextToSpeech {
 	 * Stop the MaryTTS from Speaking
 	 */
 	public void stopSpeaking() {
-		// Stop the previous player
+
 		if (tts != null)
 			tts.cancel();
 	}
